@@ -12,9 +12,9 @@ import com.done.workshopmongo.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	private UserRepository repo;
+	private UserRepository userReposiroty;
 
 	public List<User> findAll() {
-		return repo.findAll();
+		return userReposiroty.findAll();
 	}
 }
