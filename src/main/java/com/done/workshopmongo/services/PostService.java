@@ -1,5 +1,6 @@
 package com.done.workshopmongo.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +15,19 @@ import com.done.workshopmongo.services.exception.ObjectNotFoundException;
 public class PostService {
 
 	@Autowired
-	private PostRepository postReposiroty;
+	private PostRepository postRepository;
 
 	public Post findById(String id) {
-		Optional<Post> obj = postReposiroty.findById(id);
+		Optional<Post> obj = postRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 
 	public List<Post> findByTitle(String text) {
-		return postReposiroty.searchTitle(text);
+		return postRepository.searchTitle(text);
+	}
+
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate) {
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+		return postRepository.fullSearch(text, minDate, maxDate);
 	}
 }
